@@ -4,13 +4,18 @@ import { useStoreActions, useStoreState } from 'easy-peasy';
 const Messages = ({ channel }) => {
   const getMessages = useStoreActions(actions => actions.channels.fetchMessages);
   const channelsStore = useStoreState(state => state.channels);
+  const { messages } = channelsStore;
   useEffect(() => {
     getMessages(channel);
-  }, []);
-  const { isLoading, messages } = channelsStore;
+  }, [channel]);
+
   return (
-    !!isLoading && <p>Messages Loading....</p>,
-    (!isLoading && !messages.length) && <p>There are no messages in this channel!</p>
+    <div className="messages-container">
+      {!messages.length && <p>No messages on this channel.</p>}
+      {!!messages.length && messages.map(message => (
+        <p key={message}>{message}</p>
+      ))}
+    </div>
   );
 }
 

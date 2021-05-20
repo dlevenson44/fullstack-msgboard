@@ -1,27 +1,34 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useStoreActions, useStoreState } from 'easy-peasy';
+import '../App.css';
 
 import MessageContainer from './MessageContainer';
 
 const Channels = () => {
-  const getChannels = useStoreActions(actions => actions.channels.get);
+  const channelsActions = useStoreActions(actions => actions.channels);
   const channelsStore = useStoreState(state => state.channels);
-  const [selectedChannel, setSelectedChannel] = useState(null)
+  const { channels, isLoading, selectedChannel } = channelsStore;
+  const { get, setSelectedChannel, onNewMessageChange } = channelsActions;
   useEffect(() => {
-    getChannels();
-  }, []);
+    get();
+  }, [selectedChannel]);
 
-  const channelSelected = name => setSelectedChannel(name);
-  const { channels, isLoading} = channelsStore;
+  const handleClick = (channel) => {
+    onNewMessageChange('');
+    setSelectedChannel(channel)
+  }
 
   return (
-    <div>
-      {!!isLoading && !!channels.length ?
-        'Channels Loading...' :
-        Object.keys(channels).map(channel => {
-          return <p key={channel} onClick={() => channelSelected(channel)}>{channel}</p>
-        })
-      }
+    <div className="app-container">
+      <div className="channel-container">
+        <h5 className="channel-header">Channels</h5>
+        {!!isLoading && !!channels.length ?
+          'Channels Loading...' :
+          Object.keys(channels).map(channel => {
+            return <p className="channel" key={channel} onClick={() => handleClick(channel)}>{channel}</p>
+          })
+        }
+      </div>
       <MessageContainer channel={selectedChannel} />
     </div>
   )
