@@ -16,9 +16,9 @@
 
 .messages-container {
   height: 300px;
-  width: 382px;
+  width: 385px;
   overflow-y: auto;
-  margin-left: 5px;
+  margin-left: 1px;
   background-color: rgba(0, 0, 0, 0.05);
 }
 
