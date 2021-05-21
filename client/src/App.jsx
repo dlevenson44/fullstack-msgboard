@@ -1,13 +1,14 @@
 import { StoreProvider } from 'easy-peasy';
+import { Container } from '@material-ui/core';
 import store from './store/rootStore';
 import Channels from './components/Channels';
 
 function App() {
   return (
     <StoreProvider store={store}>
-      <div className="App">
+      <Container className="app-container">
         <Channels />
-      </div>
+      </Container>
     </StoreProvider>
   );
 }

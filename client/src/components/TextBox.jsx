@@ -1,4 +1,6 @@
 import { useStoreActions, useStoreState } from 'easy-peasy';
+import { Button, TextField } from '@material-ui/core';
+import PropTypes from 'prop-types';
 
 const TextBox = ({ channel }) => {
   const channelsActions = useStoreActions(actions => actions.channels);
@@ -13,19 +15,26 @@ const TextBox = ({ channel }) => {
 
   return (
     <div>
-      <input
+      <TextField
+        className="msg-field"
+        variant="outlined"
         placeholder="Enter Message Here"
         value={newMessage}
         onChange={(e) => onNewMessageChange(e.target.value)}
       />
-      <button
+      <Button
+        className="submit-btn"
+        variant="contained"
+        color="primary"
         onClick={() => handleClick()}
         disabled={!newMessage.length}
       >
           Submit
-      </button>
+      </Button>
     </div>
   );
 }
+
+TextBox.propTypes = { channel: PropTypes.string.isRequired };
 
 export default TextBox;

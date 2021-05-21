@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useStoreActions, useStoreState } from 'easy-peasy';
+import PropTypes from 'prop-types';
 
 const Messages = ({ channel }) => {
   const getMessages = useStoreActions(actions => actions.channels.fetchMessages);
@@ -7,7 +8,7 @@ const Messages = ({ channel }) => {
   const { messages } = channelsStore;
   useEffect(() => {
     getMessages(channel);
-  }, [channel]);
+  }, [channel, getMessages]);
 
   return (
     <div className="messages-container">
@@ -18,5 +19,7 @@ const Messages = ({ channel }) => {
     </div>
   );
 }
+
+Messages.propTypes = { channel: PropTypes.string.isRequired };
 
 export default Messages;

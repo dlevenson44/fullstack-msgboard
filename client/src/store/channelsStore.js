@@ -5,8 +5,12 @@ const channels = {
   channels: [],
   messages: [],
   newMessage: '',
+  selectedChannel: null,
   onNewMessageChange: action((state, payload) => {
     state.newMessage = payload;
+  }),
+  setSelectedChannel: action((state, payload) => {
+    state.selectedChannel = payload;
   }),
   postMessage: thunk(async (actions, payload) => {
     const { channel, newMessage } = payload;
@@ -21,10 +25,6 @@ const channels = {
     })
       .then(res => res.json())
       .then(data => actions.successfulMessagePost(data.messages));
-  }),
-  selectedChannel: null,
-  setSelectedChannel: action((state, payload) => {
-    state.selectedChannel = payload;
   }),
   get: thunk(async (actions, payload) => {
     actions.startFetch();

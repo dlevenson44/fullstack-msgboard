@@ -10,12 +10,22 @@
   width: 33%;
 }
 
-.channel:hover {
-  cursor: pointer;
+.channel-header {
+  margin-left: 15px;
 }
 
 .messages-container {
   height: 300px;
+  width: 382px;
   overflow-y: auto;
   margin-left: 5px;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.submit-btn {
+  height: 55px;
+}
+
+.msg-field {
+  width: 300px;
 }
